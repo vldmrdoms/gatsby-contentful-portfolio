@@ -2,7 +2,7 @@ name: CI-CD-Pipeline-portfolio
 env: 
   EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-eu-central-1-088633081041"
   EB_APPLICATION_NAME       : "static-portfolio"
-  EB_ENVIRONMENT_NAME       : "Staticportfolio-env"
+  EB_ENVIRONMENT_NAME       : "Staticportfolio-env-1"
   DEPLOY_PACKAGE_NAME       : "Portfolio_${{ github.sha }}.zip"
   AWS_REGION_NAME           : "eu-central-1"
   
@@ -49,11 +49,11 @@ jobs:
         aws elasticbeanstalk create-application-version 
         --application-name ${{ env.EB_APPLICATION_NAME }}
         --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}"
-        --version-label "Ver-${{ github.sha }}+1"
+        --version-label "Ver-${{ github.sha }}"
         --description "CommitSHA-${{ github.sha }}"
         
     - name: Deploy new EB Application Version
-      run: aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}+1"
+      run: aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}"
       
     
         
