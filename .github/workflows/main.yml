@@ -1,0 +1,30 @@
+name: CI-CD-Pipeline-portfolio
+env: 
+  EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-eu-central-1-088633081041"
+  EB_APPLICATION_NAME       : "Portfolio"
+  EB_ENVIRONMENT_NAME       : "Portfolio-env"
+  DEPLOY_PACHAGE_NAME       : "Portfolio_${{ github.sha }}.zip
+  AWS_REGION_NAME           : "eu-central-1"
+  
+  on:
+    push:
+      branches:
+        - master
+        
+  jobs:
+    ci_part:
+      runs-on: ubuntu-latest
+      steps:
+      
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+        
+      - name: Create ZIP deployment package
+        run: zip -r $${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+        
+        
+        
+        
+        
+        
+        
